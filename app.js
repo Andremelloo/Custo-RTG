@@ -16,7 +16,7 @@ const i18n = {
     headerSubFleet: 'Frota: <strong>39 RTGs</strong>',
     headerSubContractors: '<strong>Serviços Terceiros</strong>',
     headerSubWorkshop: '<strong>Oficina W900</strong>',
-    planBtn: '📖 Plano Executivo',
+    planBtn: '📖 Plano Resumido',
     exportCsvBtn: '📥 Baixar CSV',
     exportExcelBtn: '📊 Exportar Excel (.xlsx)',
     printBtn: '🖨️ Imprimir / PDF',
