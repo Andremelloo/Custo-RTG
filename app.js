@@ -231,7 +231,7 @@ const state = {
     direction: 'desc',
   },
   charts: {},
-  lang: 'pt',
+  lang: 'en',
 };
 
 // Translation Helper
@@ -353,9 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Load language preference if saved
+  // Load language preference if saved (defaults to 'en')
+  state.lang = 'en';
   try {
-    const savedLang = localStorage.getItem('rtg_dashboard_lang');
+    const savedLang = localStorage.getItem('rtg_dashboard_lang_v2');
     if (savedLang === 'en' || savedLang === 'pt') {
       state.lang = savedLang;
     }
@@ -399,7 +400,7 @@ function initEventListeners() {
   if (langToggle) {
     langToggle.addEventListener('click', () => {
       state.lang = state.lang === 'pt' ? 'en' : 'pt';
-      try { localStorage.setItem('rtg_dashboard_lang', state.lang); } catch (e) {}
+      try { localStorage.setItem('rtg_dashboard_lang_v2', state.lang); } catch (e) {}
       applyLanguageUI();
       updateKPIs();
       renderCurrentTab();
@@ -683,6 +684,16 @@ function applyLanguageUI() {
   if (tabMat) tabMat.innerHTML = t('tabMateriais');
   const tabDiag = document.getElementById('tab-btn-diagnostico');
   if (tabDiag) tabDiag.innerHTML = t('tabDiagnostico');
+
+  // Filter Dropdown Default Options
+  const selMes = document.getElementById('filter-mes');
+  if (selMes && selMes.options[0]) selMes.options[0].textContent = t('allMonths');
+  const selCat = document.getElementById('filter-categoria');
+  if (selCat && selCat.options[0]) selCat.options[0].textContent = t('allCategories');
+  const selMod = document.getElementById('filter-modelo');
+  if (selMod && selMod.options[0]) selMod.options[0].textContent = t('allModels');
+  const selEq = document.getElementById('filter-equipamento');
+  if (selEq && selEq.options[0]) selEq.options[0].textContent = t('allEquips');
 }
 
 // Apply Filters

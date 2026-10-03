@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard de Gest&atilde;o de Custos RTG &amp; Terceiros - Base V2 (Jan a Ago/2026)</title>
+  <title>Strategic Cost Management Dashboard &bull; RTG Fleet, Third Parties &amp; Workshop (Jan-Aug 2026)</title>
 
   <!-- Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,30 +32,30 @@
           style="font-weight: 900; font-size: 34px; letter-spacing: 2px; color: #38bdf8; font-family: 'Outfit', sans-serif; text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);">
           TCP</div>
         <h2 id="login-company-title">TCP</h2>
-        <p class="login-sub" id="login-portal-title">Gest&atilde;o Estrat&eacute;gica de Custos &bull; Frota RTG</p>
+        <p class="login-sub" id="login-portal-title">Strategic Fleet Cost Management &bull; RTGs</p>
       </div>
 
       <form id="login-form" onsubmit="handleLoginSubmit(event)" autocomplete="off">
         <div class="login-form-group">
-          <label for="login-password" id="lbl-login-pass">&#128274; Senha de Acesso</label>
+          <label for="login-password" id="lbl-login-pass">&#128274; Access Password</label>
           <div class="password-input-wrapper">
-            <input type="password" id="login-password" class="input-control" placeholder="Digite a senha..." required
+            <input type="password" id="login-password" class="input-control" placeholder="Enter password..." required
               autofocus />
-            <button type="button" class="btn-toggle-pwd" id="btn-toggle-pwd" title="Mostrar/Ocultar Senha"
+            <button type="button" class="btn-toggle-pwd" id="btn-toggle-pwd" title="Show/Hide Password"
               onclick="togglePasswordVisibility()">&#128065;&#65039;</button>
           </div>
           <div class="login-error-msg" id="login-error" style="display: none;">
-            &#9888;&#65039; Senha incorreta. Tente novamente.
+            &#9888;&#65039; Incorrect password. Try again.
           </div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-login-submit" id="btn-login-submit">
-          <span id="btn-login-submit-text">Acessar Dashboard</span> &rarr;
+          <span id="btn-login-submit-text">Access Dashboard</span> &rarr;
         </button>
       </form>
 
       <div class="login-footer" id="login-footer-text">
-        <span>&#128737;&#65039; Ambiente Seguro &bull; Acesso Restrito &bull; Engenharia TCP</span>
+        <span>&#128737;&#65039; Secure Environment &bull; Restricted Access &bull; TCP Engineering</span>
       </div>
     </div>
   </div>
@@ -69,30 +69,30 @@
           style="font-weight: 900; font-size: 22px; letter-spacing: 1.5px; color: #38bdf8; font-family: 'Outfit', sans-serif; text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);">
           TCP</div>
         <div class="brand-title">
-          <h1 id="header-main-title">Gest&atilde;o Estrat&eacute;gica de Custos &bull; Frota RTG, Terceiros &amp; Oficina</h1>
+          <h1 id="header-main-title">Strategic Cost Management &bull; RTG Fleet, Third Parties &amp; Workshop</h1>
           <p>
-            <span id="header-sub-base">&#128193; Base Atualizada: <strong>Custo_01-01-2026 a 08-31-2026_V2</strong></span>
+            <span id="header-sub-base">&#128193; Updated database: <strong>Cost_01-01-2026 to 08-31-2026_V2</strong></span>
             <span>&bull;</span>
-            <span id="header-sub-period">&#128197; Per&iacute;odo: <strong>Jan a Ago/2026 (8 Meses)</strong></span>
+            <span id="header-sub-period">&#128197; Period: <strong>Jan. to Aug. 2026 (8 months)</strong></span>
             <span>&bull;</span>
-            <span id="header-sub-fleet">&#127959;&#65039; Frota: <strong>39 RTGs</strong></span>
+            <span id="header-sub-fleet">&#127959;&#65039; Fleet: <strong>39 RTGs</strong></span>
             <span>&bull;</span>
-            <span id="header-sub-contractors">&#129309; <strong>Servi&ccedil;os Terceiros</strong></span>
+            <span id="header-sub-contractors">&#129309; <strong>Third-Party Services</strong></span>
             <span>&bull;</span>
-            <span id="header-sub-workshop">&#128295; <strong>Oficina W900</strong></span>
+            <span id="header-sub-workshop">&#128295; <strong>Workshop W900</strong></span>
           </p>
         </div>
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-primary" id="lang-toggle-btn">&#127482;&#127480; English</button>
-        <button class="btn btn-outline" id="theme-toggle-btn">&#9728;&#65039; Alternar Tema</button>
-        <button class="btn btn-secondary" id="btn-view-plan">&#128214; Plano Resumido</button>
-        <button class="btn btn-secondary" id="btn-export-csv">&#128229; Baixar CSV</button>
-        <button class="btn btn-success" id="btn-export-excel">&#128202; Exportar Excel (.xlsx)</button>
-        <button class="btn btn-outline" id="btn-print">&#128424;&#65039; Imprimir / PDF</button>
-        <button class="btn btn-outline" id="btn-logout" title="Bloquear / Sair">&#128274; <span
-            id="btn-logout-text">Sair</span></button>
+        <button class="btn btn-primary" id="lang-toggle-btn">&#127463;&#127479; Portugu&ecirc;s</button>
+        <button class="btn btn-outline" id="theme-toggle-btn">&#9728;&#65039; Toggle Theme</button>
+        <button class="btn btn-secondary" id="btn-view-plan">&#128214; Summary Plan</button>
+        <button class="btn btn-secondary" id="btn-export-csv">&#128229; Download CSV</button>
+        <button class="btn btn-success" id="btn-export-excel">&#128202; Export Excel (.xlsx)</button>
+        <button class="btn btn-outline" id="btn-print">&#128424;&#65039; Print / PDF</button>
+        <button class="btn btn-outline" id="btn-logout" title="Lock / Logout">&#128274; <span
+            id="btn-logout-text">Logout</span></button>
       </div>
     </header>
 
