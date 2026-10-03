@@ -11,11 +11,11 @@ const i18n = {
     themeLight: '☀️ Modo Claro',
     themeDark: '🌙 Modo Escuro',
     headerTitle: 'Gestão Estratégica de Custos • Frota RTG, Terceiros & Oficina',
-    headerSubBase: 'Base Atualizada: <strong>Custo_01-01-2026 a 08-31-2026_V2</strong>',
-    headerSubPeriod: 'Período: <strong>Jan a Ago/2026 (8 Meses)</strong>',
-    headerSubFleet: 'Frota: <strong>39 RTGs</strong>',
-    headerSubContractors: '<strong>Serviços Terceiros</strong>',
-    headerSubWorkshop: '<strong>Oficina W900</strong>',
+    headerSubBase: '📁 Base Atualizada: <strong>Custo_01-01-2026 a 08-31-2026_V2</strong>',
+    headerSubPeriod: '📅 Período: <strong>Jan a Ago/2026 (8 Meses)</strong>',
+    headerSubFleet: '🏗️ Frota: <strong>39 RTGs</strong>',
+    headerSubContractors: '🤝 <strong>Serviços Terceiros</strong>',
+    headerSubWorkshop: '🔧 <strong>Oficina W900</strong>',
     planBtn: '📖 Plano Resumido',
     exportCsvBtn: '📥 Baixar CSV',
     exportExcelBtn: '📊 Exportar Excel (.xlsx)',
@@ -103,13 +103,13 @@ const i18n = {
     langBtn: '🇧🇷 Português',
     themeLight: '☀️ Light Mode',
     themeDark: '🌙 Dark Mode',
-    headerTitle: 'Strategic Cost & Fleet Management • RTGs, Contractors & Workshop',
-    headerSubBase: 'Updated Database: <strong>Custo_01-01-2026 to 08-31-2026_V2</strong>',
-    headerSubPeriod: 'Period: <strong>Jan to Aug/2026 (8 Months)</strong>',
-    headerSubFleet: 'Fleet: <strong>39 RTGs</strong>',
-    headerSubContractors: '<strong>Contractors & Services</strong>',
-    headerSubWorkshop: '<strong>Workshop W900</strong>',
-    planBtn: '📖 Executive Plan',
+    headerTitle: 'Strategic Cost Management • RTG Fleet, Third Parties & Workshop',
+    headerSubBase: '📁 Updated database: <strong>Cost_01-01-2026 to 08-31-2026_V2</strong>',
+    headerSubPeriod: '📅 Period: <strong>Jan. to Aug. 2026 (8 months)</strong>',
+    headerSubFleet: '🏗️ Fleet: <strong>39 RTGs</strong>',
+    headerSubContractors: '🤝 <strong>Third-Party Services</strong>',
+    headerSubWorkshop: '🔧 <strong>Workshop W900</strong>',
+    planBtn: '📖 Summary Plan',
     exportCsvBtn: '📥 Download CSV',
     exportExcelBtn: '📊 Export Excel (.xlsx)',
     printBtn: '🖨️ Print / PDF',
@@ -554,6 +554,20 @@ function applyLanguageUI() {
 
   const elPrint = document.getElementById('btn-print');
   if (elPrint) elPrint.textContent = t('printBtn');
+
+  // Top Header Titles & Subtitles
+  const hTitle = document.getElementById('header-main-title');
+  if (hTitle) hTitle.innerHTML = t('headerTitle');
+  const hBase = document.getElementById('header-sub-base');
+  if (hBase) hBase.innerHTML = t('headerSubBase');
+  const hPer = document.getElementById('header-sub-period');
+  if (hPer) hPer.innerHTML = t('headerSubPeriod');
+  const hFlt = document.getElementById('header-sub-fleet');
+  if (hFlt) hFlt.innerHTML = t('headerSubFleet');
+  const hContr = document.getElementById('header-sub-contractors');
+  if (hContr) hContr.innerHTML = t('headerSubContractors');
+  const hShop = document.getElementById('header-sub-workshop');
+  if (hShop) hShop.innerHTML = t('headerSubWorkshop');
 
   // Banner
   const bTitle = document.getElementById('banner-title');
