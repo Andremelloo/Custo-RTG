@@ -199,18 +199,115 @@ const i18n = {
     loginError: '⚠️ Incorrect password. Try again.',
     loginFooter: '🛡️ Secure Environment • Restricted Access • TCP Engineering',
     logoutBtn: 'Logout'
+  },
+  zh: {
+    langBtn: '🇺🇸 English',
+    themeLight: '☀️ 淺色模式',
+    themeDark: '🌙 深色模式',
+    headerTitle: '戰略成本管理 • RTG機隊、外協服務與車間',
+    headerSubBase: '📁 最新數據庫: <strong>Cost_01-01-2026 to 08-31-2026_V2</strong>',
+    headerSubPeriod: '📅 統計週期: <strong>2026年1月至8月 (8個月)</strong>',
+    headerSubFleet: '🏗️ 機隊規模: <strong>39 台 RTG</strong>',
+    headerSubContractors: '🤝 <strong>外協與外包服務</strong>',
+    headerSubWorkshop: '🔧 <strong>W900 綜合車間</strong>',
+    planBtn: '📖 執行計劃摘要',
+    exportCsvBtn: '📥 下載 CSV',
+    exportExcelBtn: '📊 導出 Excel (.xlsx)',
+    printBtn: '🖨️ 列印 / 導出 PDF',
+    bannerTitle: '多月度審計與單機指標分析 (2026年1月至8月)',
+    bannerDesc: '包含 6,985 筆預算記賬明細，精準計算單機月均成本、累計運行動態工時及每小時維修成本。',
+    bannerFleetAvgBadge: '機隊基準值: R$ 34,768.20 / 台 / 月',
+    bannerRtgHeading: '🏗️ RTG 機隊成本: R$ 10,847,678.44 (6,815 筆明細)',
+    bannerRtgText: '39 台在役起重機備件及直接維修費用。單機月均: <strong>R$ 34.7k/月</strong>。',
+    bannerMakerHeading: '📈 各製造商成本分佈',
+    bannerMakerText: '<strong>科尼 (Kone):</strong> R$ 54.5k/月 • <strong>卡爾瑪 (Kalmar):</strong> R$ 26.1k/月 • <strong>振華 (ZMPC):</strong> R$ 15.4k/月 (單機)。',
+    bannerHoursHeading: '⏱️ 作業強度與工時成本',
+    bannerHoursText: '機隊累計運行 <strong>169,263 小時</strong> (月均 529 小時/台)。直接維修成本: <strong>R$ 64.09 / 小時</strong>。',
+    kpiTotalTitle: '總支出金額 (篩選)',
+    kpiRtgTitle: 'RTG 機隊 (39 台)',
+    kpiHorasTitle: '累計運行工時 (8個月)',
+    kpiHorasBadge: '⏱️ 運行工時',
+    kpiHorasFooter: '平均: 529 小時 / 月 / 台',
+    kpiCustoHoraTitle: '平均每小時成本',
+    kpiCustoHoraBadge: '⚡ R$/小時',
+    kpiCustoHoraFooter: '8個月實際基準 (8m)',
+    kpiMediaTitle: 'RTG 單機月均成本',
+    kpiKoneTitle: '科尼 KoneCranes (16 台)',
+    kpiKalmarTitle: '卡爾瑪 Kalmar (12 台)',
+    kpiZmpcTitle: '振華重工 ZMPC (11 台)',
+    kpiTerceirosTitle: '外協與外包服務',
+    kpiOfensorTitle: '最高成本設備',
+    kpiTitleProj2026: '2026年終預測 (RTG機隊)',
+    kpiBadgeProj2026: '🎯 12個月年化率',
+    kpiTitleProj2027: '2027預算預測 (RTG機隊)',
+    kpiBadgeProj2027: '📈 +8.0% 磨損遞增',
+    filterMonth: '📅 月份 / 統計週期',
+    filterCategory: '🏷️ 費用類別',
+    filterModel: '⚙️ 製造商 / 型號',
+    filterEquip: '🏗️ 指定 RTG',
+    filterSearch: '🔍 搜索明細 (備件、供應商)',
+    filterMinVal: '💵 最低金額 (R$)',
+    filterReset: '↺ 重置篩選',
+    allMonths: '全部 8 個月 (累計)',
+    allCategories: '全部類別',
+    allModels: '全部製造商',
+    allEquips: '全部 RTG 起重機',
+    tabRanking: '🏗️ 機隊綜合排行 (工時與成本)',
+    tabMensal: '📅 月度對比分析 (1-8月)',
+    tabLancamentos: '📋 全部交易明細 (6,985 筆)',
+    tabTerceiros: '🤝 外協與專業服務',
+    tabW900: '🔧 W900 車間 (後勤消耗)',
+    tabMateriais: '🔩 RTG 核心備件排行',
+    tabDiagnostico: '📄 戰略報告與決策建議',
+    rankingTitle: '機隊工時與單位小時成本綜合績效表',
+    rankingSub: '機隊平均: <strong>R$ 34,768.20/月</strong> • <strong>R$ 64.09/小時</strong> • 點擊任意設備查看 8 個月歷史明細',
+    hours8m: '運行工時 (8個月)',
+    costPerHour: '成本 R$/小時',
+    totalSpent: '累計支出 (R$)',
+    monthlyAvg: '月均成本 (R$/月)',
+    deviationVsFleet: '對比機隊偏差',
+    pctFleet: '佔機隊比重',
+    partsCount: '備件數量',
+    avgCostPerPart: '單件平均成本',
+    historyAction: '詳情',
+    viewMonthsBtn: '📊 查看詳情',
+    modalSubtitle: '設備維修費用、工時及月度演變詳細分析報告 (2026年1月至8月)。',
+    modalCost8m: '8個月總成本',
+    modalMonthlyAvg: '月度平均成本',
+    modalHours: '累計作業工時',
+    modalCostHour: '每小時成本',
+    modalPartsCount: '更換備件數量',
+    modalAvgTicket: '平均單次費用',
+    modalCurveTitle: '月度成本曲線及運行工時 -',
+    modalTopPartsTitle: '主要更換部件與備品 -',
+    modalCloseBtn: '關閉詳情',
+    chartEvolutionTitle: '📈 月度成本變化趨勢 • 2026年1月至8月',
+    chartModelsTitle: '🍩 各製造商成本佔比',
+    chartEquipTitle: '🏗️ 前 15 台 RTG: 總成本 vs 機隊平均基準',
+    chartCompTitle: '📊 整體成本結構 (RTG機隊 vs 外協 vs 車間)',
+    idleNotice: '0 小時 (停機/備用)',
+    perHourSuffix: '/ 小時',
+    perMonthSuffix: '/ 月',
+    loginTitle: '巴拉那瓜集裝箱碼頭 (TCP / 招商港口)',
+    loginSub: '戰略成本管理 • RTG機隊',
+    loginLabel: '🔒 訪問密碼',
+    loginPlaceholder: '請輸入訪問密碼...',
+    loginBtn: '進入儀表板',
+    loginError: '⚠️ 密碼錯誤，請重試。',
+    loginFooter: '🛡️ 安全環境 • 內部權限受限 • TCP工程部',
+    logoutBtn: '退出 / 鎖定'
   }
 };
 
 // Definition of the 7 RTG Technological Families
 const FAMILIES_DEF = [
-  { id: 1, min: 1, max: 3, units: 3, titlePt: 'RTG 01 ao 03 (3 un)', titleEn: 'RTG 01 to 03 (3 units)', badgePt: '⚡ Eletrificado', badgeEn: '⚡ Electrified' },
-  { id: 2, min: 4, max: 6, units: 3, titlePt: 'RTG 04 ao 06 (3 un)', titleEn: 'RTG 04 to 06 (3 units)', badgePt: '⛽ Diesel (2001)', badgeEn: '⛽ Diesel (2001)' },
-  { id: 3, min: 8, max: 10, units: 3, titlePt: 'RTG 08 ao 10 (3 un)', titleEn: 'RTG 08 to 10 (3 units)', badgePt: '⛽ Kalmar (2005)', badgeEn: '⛽ Kalmar (2005)' },
-  { id: 4, min: 11, max: 14, units: 4, titlePt: 'RTG 11 ao 14 (4 un)', titleEn: 'RTG 11 to 14 (4 units)', badgePt: '🚨 Pico de Custo', badgeEn: '🚨 Peak Cost' },
-  { id: 5, min: 15, max: 20, units: 6, titlePt: 'RTG 15 ao 20 (6 un)', titleEn: 'RTG 15 to 20 (6 units)', badgePt: '⛽ Retrofit (2011)', badgeEn: '⛽ Retrofit (2011)' },
-  { id: 6, min: 21, max: 30, units: 10, titlePt: 'RTG 21 ao 30 (10 un)', titleEn: 'RTG 21 to 30 (10 units)', badgePt: '⛽ Retrofit (2014)', badgeEn: '⛽ Retrofit (2014)' },
-  { id: 7, min: 31, max: 41, units: 11, titlePt: 'RTG 31 ao 41 (11 un)', titleEn: 'RTG 31 to 41 (11 units)', badgePt: '🌱 Frota Nova (2023)', badgeEn: '🌱 New Fleet (2023)' }
+  { id: 1, min: 1, max: 3, units: 3, titlePt: 'RTG 01 ao 03 (3 un)', titleEn: 'RTG 01 to 03 (3 units)', titleZh: 'RTG 01 至 03 (3 台)', badgePt: '⚡ Eletrificado', badgeEn: '⚡ Electrified', badgeZh: '⚡ 電氣化' },
+  { id: 2, min: 4, max: 6, units: 3, titlePt: 'RTG 04 ao 06 (3 un)', titleEn: 'RTG 04 to 06 (3 units)', titleZh: 'RTG 04 至 06 (3 台)', badgePt: '⛽ Diesel (2001)', badgeEn: '⛽ Diesel (2001)', badgeZh: '⛽ 柴油 (2001)' },
+  { id: 3, min: 8, max: 10, units: 3, titlePt: 'RTG 08 ao 10 (3 un)', titleEn: 'RTG 08 to 10 (3 units)', titleZh: 'RTG 08 至 10 (3 台)', badgePt: '⛽ Kalmar (2005)', badgeEn: '⛽ Kalmar (2005)', badgeZh: '⛽ 卡爾瑪 (2005)' },
+  { id: 4, min: 11, max: 14, units: 4, titlePt: 'RTG 11 ao 14 (4 un)', titleEn: 'RTG 11 to 14 (4 units)', titleZh: 'RTG 11 至 14 (4 台)', badgePt: '🚨 Pico de Custo', badgeEn: '🚨 Peak Cost', badgeZh: '🚨 成本峰值' },
+  { id: 5, min: 15, max: 20, units: 6, titlePt: 'RTG 15 ao 20 (6 un)', titleEn: 'RTG 15 to 20 (6 units)', titleZh: 'RTG 15 至 20 (6 台)', badgePt: '⛽ Retrofit (2011)', badgeEn: '⛽ Retrofit (2011)', badgeZh: '⛽ 改造機組 (2011)' },
+  { id: 6, min: 21, max: 30, units: 10, titlePt: 'RTG 21 ao 30 (10 un)', titleEn: 'RTG 21 to 30 (10 units)', titleZh: 'RTG 21 至 30 (10 台)', badgePt: '⛽ Retrofit (2014)', badgeEn: '⛽ Retrofit (2014)', badgeZh: '⛽ 改造機組 (2014)' },
+  { id: 7, min: 31, max: 41, units: 11, titlePt: 'RTG 31 ao 41 (11 un)', titleEn: 'RTG 31 to 41 (11 units)', titleZh: 'RTG 31 至 41 (11 台)', badgePt: '🌱 Frota Nova (2023)', badgeEn: '🌱 New Fleet (2023)', badgeZh: '🌱 新機隊 (2023)' }
 ];
 
 // State Management
@@ -242,10 +339,16 @@ const state = {
   lang: 'en',
 };
 
-// Translation Helper
+// Translation Helpers
 function t(key) {
-  const dict = i18n[state.lang] || i18n.pt;
-  return dict[key] || i18n.pt[key] || key;
+  const dict = i18n[state.lang] || i18n.en || i18n.pt;
+  return dict[key] || (i18n.en && i18n.en[key]) || (i18n.pt && i18n.pt[key]) || key;
+}
+
+function txt(en, pt, zh) {
+  if (state.lang === 'zh') return zh !== undefined ? zh : en;
+  if (state.lang === 'pt') return pt;
+  return en;
 }
 
 // Formatters
@@ -364,8 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load language preference if saved (defaults to 'en')
   state.lang = 'en';
   try {
-    const savedLang = localStorage.getItem('rtg_dashboard_lang_v2');
-    if (savedLang === 'en' || savedLang === 'pt') {
+    const savedLang = localStorage.getItem('rtg_dashboard_lang_v3');
+    if (savedLang === 'en' || savedLang === 'pt' || savedLang === 'zh') {
       state.lang = savedLang;
     }
   } catch (e) {}
@@ -403,12 +506,27 @@ function initFilterOptions() {
 
 // Event Listeners
 function initEventListeners() {
-  // Language Switcher Toggle
+  // Language Switcher (Select Dropdown & Cycle Toggle)
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) {
+    langSelect.addEventListener('change', (e) => {
+      state.lang = e.target.value;
+      try { localStorage.setItem('rtg_dashboard_lang_v3', state.lang); } catch (err) {}
+      applyLanguageUI();
+      updateKPIs();
+      renderCurrentTab();
+      updateStatusBar();
+      updateCharts();
+    });
+  }
+
   const langToggle = document.getElementById('lang-toggle-btn');
   if (langToggle) {
     langToggle.addEventListener('click', () => {
-      state.lang = state.lang === 'pt' ? 'en' : 'pt';
-      try { localStorage.setItem('rtg_dashboard_lang_v2', state.lang); } catch (e) {}
+      if (state.lang === 'en') state.lang = 'zh';
+      else if (state.lang === 'zh') state.lang = 'pt';
+      else state.lang = 'en';
+      try { localStorage.setItem('rtg_dashboard_lang_v3', state.lang); } catch (e) {}
       applyLanguageUI();
       updateKPIs();
       renderCurrentTab();
@@ -543,8 +661,13 @@ function initEventListeners() {
 
 // Apply Language strings to static DOM elements
 function applyLanguageUI() {
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) langSelect.value = state.lang;
+
   const langBtn = document.getElementById('lang-toggle-btn');
-  if (langBtn) langBtn.textContent = t('langBtn');
+  if (langBtn) {
+    langBtn.textContent = state.lang === 'en' ? '🇨🇳 繁體中文' : (state.lang === 'zh' ? '🇧🇷 Português' : '🇺🇸 English');
+  }
 
   const themeToggle = document.getElementById('theme-toggle-btn');
   if (themeToggle) {
@@ -635,22 +758,26 @@ function applyLanguageUI() {
   // Family Section Header & Titles
   const fSecTitle = document.getElementById('family-section-title');
   if (fSecTitle) {
-    fSecTitle.textContent = state.lang === 'en'
-      ? 'Technological Batches & RTG Families (Costs, Hours & Cost/Hour)'
-      : 'Lotes Tecnológicos & Famílias de RTG (Custos, Horas & Custo/Hora)';
+    fSecTitle.textContent = state.lang === 'zh'
+      ? '技術批次與 RTG 家族 (成本、工時與每小時費用)'
+      : (state.lang === 'en'
+        ? 'Technological Batches & RTG Families (Costs, Hours & Cost/Hour)'
+        : 'Lotes Tecnológicos & Famílias de RTG (Custos, Horas & Custo/Hora)');
   }
   const fSecBadge = document.getElementById('family-section-badge');
   if (fSecBadge) {
-    fSecBadge.textContent = state.lang === 'en'
-      ? '7 Batches • 39 Active Cranes'
-      : '7 Lotes • 39 Guindastes Ativos';
+    fSecBadge.textContent = state.lang === 'zh'
+      ? '7 個批次 • 39 台在役起重機'
+      : (state.lang === 'en'
+        ? '7 Batches • 39 Active Cranes'
+        : '7 Lotes • 39 Guindastes Ativos');
   }
 
   FAMILIES_DEF.forEach(fam => {
     const elFamTitle = document.getElementById(`fam-title-${fam.id}`);
-    if (elFamTitle) elFamTitle.textContent = state.lang === 'en' ? fam.titleEn : fam.titlePt;
+    if (elFamTitle) elFamTitle.textContent = state.lang === 'zh' ? fam.titleZh : (state.lang === 'en' ? fam.titleEn : fam.titlePt);
     const elFamBadge = document.getElementById(`fam-badge-${fam.id}`);
-    if (elFamBadge) elFamBadge.textContent = state.lang === 'en' ? fam.badgeEn : fam.badgePt;
+    if (elFamBadge) elFamBadge.textContent = state.lang === 'zh' ? fam.badgeZh : (state.lang === 'en' ? fam.badgeEn : fam.badgePt);
   });
 
   // Login Gate & Logout Translations
@@ -1986,7 +2113,39 @@ function renderMateriaisTable(container) {
 
 // 7. Render Diagnóstico Tab
 function renderDiagnosticoTab(container) {
-  if (state.lang === 'en') {
+  if (state.lang === 'zh') {
+    container.innerHTML = `
+      <div style="padding: 10px 0;">
+        <h3 style="margin-bottom: 12px; color: var(--kone-blue);">機隊戰略審計與單位成本診斷報告 • 2026年1月至8月</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6;">
+          深入評估 6,985 筆維修記錄，總金額 <strong>R$ 11,634,334.24</strong>，累計作業 <strong>169,263 小時</strong>，並建立單機每小時維護成本模型。
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 24px;">
+          <div class="glass-panel" style="padding: 20px; border-left: 4px solid var(--kone-blue);">
+            <h4 style="color: var(--kone-blue); margin-bottom: 10px;">🏗️ 1. 碼頭實證數據: 電氣化 (E-RTG) vs 柴油機組</h4>
+            <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <strong>RTG 01 至 03 (2001年科尼電氣化改造)</strong> 每小時成本僅 <strong>R$ 48.50 / 小時</strong>，設備可用率較同齡柴油機組 <strong>RTG 04 至 06 (R$ 86.05 / 小時)</strong> 提高 +35%。
+            </p>
+          </div>
+
+          <div class="glass-panel" style="padding: 20px; border-left: 4px solid var(--danger);">
+            <h4 style="color: var(--danger); margin-bottom: 10px;">🚨 2. 重點成本超標機隊 (優先更換/改造)</h4>
+            <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              <strong>科尼 2008 (RTG 11-14)</strong> 達到全場最高 <strong>R$ 162.93 / 小時</strong>，<strong>科尼 2011 (RTG 15-20)</strong> 為 <strong>R$ 147.16 / 小時</strong>。這兩個批次構成碼頭最主要的維修預算消耗源。
+            </p>
+          </div>
+
+          <div class="glass-panel" style="padding: 20px; border-left: 4px solid var(--zmpc-green);">
+            <h4 style="color: var(--zmpc-green); margin-bottom: 10px;">💡 3. 新機隊基準: 2023年振華重工 (ZPMC)</h4>
+            <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+              11 台振華新機累計作業 59,101 小時 (月均 672 小時/台)，單位直接維修成本僅 <strong>R$ 22.90 / 小時</strong>，展現極高性價比與可靠性。
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (state.lang === 'en') {
     container.innerHTML = `
       <div style="padding: 10px 0;">
         <h3 style="margin-bottom: 12px; color: var(--kone-blue);">Strategic Fleet Audit & Unit Cost Diagnosis • Jan to Aug 2026</h3>
