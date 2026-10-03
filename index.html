@@ -1,0 +1,510 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Gest&atilde;o de Custos RTG &amp; Terceiros - Base V2 (Jan a Ago/2026)</title>
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Local Chart.js & SheetJS (100% Offline & Standalone) -->
+  <script src="chart.umd.min.js"></script>
+  <script src="xlsx.full.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="glass-panel dashboard-header">
+      <div class="brand-section">
+        <div class="brand-icon" id="dashboard-logo-icon">&#9875;&#65039;</div>
+        <div class="brand-title">
+          <h1>Gest&atilde;o Estrat&eacute;gica de Custos &bull; Frota RTG, Terceiros &amp; Oficina</h1>
+          <p>
+            <span>&#128193; Base Atualizada: <strong>Custo_01-01-2026 a 08-31-2026_V2</strong></span>
+            <span>&bull;</span>
+            <span>&#128197; Per&iacute;odo: <strong>Jan a Ago/2026 (8 Meses)</strong></span>
+            <span>&bull;</span>
+            <span>&#127959;&#65039; Frota: <strong>39 RTGs</strong></span>
+            <span>&bull;</span>
+            <span>&#129309; <strong>Servi&ccedil;os Terceiros</strong></span>
+            <span>&bull;</span>
+            <span>&#128295; <strong>Oficina W900</strong></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-primary" id="lang-toggle-btn">&#127482;&#127480; English</button>
+        <button class="btn btn-outline" id="theme-toggle-btn">&#9728;&#65039; Alternar Tema</button>
+        <button class="btn btn-secondary" id="btn-view-plan">&#128214; Plano Executivo</button>
+        <button class="btn btn-secondary" id="btn-export-csv">&#128229; Baixar CSV</button>
+        <button class="btn btn-success" id="btn-export-excel">&#128202; Exportar Excel (.xlsx)</button>
+        <button class="btn btn-outline" id="btn-print">&#128424;&#65039; Imprimir / PDF</button>
+      </div>
+    </header>
+
+    <!-- Strategic Diagnostic Alert Banner -->
+    <section class="glass-panel diagnostic-banner" id="diagnostic-banner">
+      <div class="diagnostic-header">
+        <div class="diagnostic-title">
+          <span style="font-size: 22px;">&#128161;</span>
+          <div>
+            <h3 id="banner-title">Auditoria Multimensal &amp; M&eacute;dias por Equipamento (Janeiro a Agosto/2026)</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;" id="banner-desc">
+              6.985 lan&ccedil;amentos or&ccedil;ament&aacute;rios com c&aacute;lculo de m&eacute;dia mensal individual, hor&iacute;metros acumulados e custo por hora trabalhada.
+            </p>
+          </div>
+        </div>
+        <span class="badge badge-warning" id="banner-metric-badge">M&eacute;dia da Frota: R$ 34.768,20 / RTG / m&ecirc;s</span>
+      </div>
+
+      <div class="diagnostic-content">
+        <div class="diagnostic-item">
+          <h4 id="banner-rtg-heading">&#127959;&#65039; Frota de RTGs: R$ 10.847.678,44 (6.815 itens)</h4>
+          <p id="banner-rtg-text">
+            Custo estrito de pe&ccedil;as e manuten&ccedil;&otilde;es nos 39 guindastes operacionais. M&eacute;dia mensal de <strong>R$ 34,7k/m&ecirc;s por RTG</strong>.
+          </p>
+        </div>
+
+        <div class="diagnostic-item">
+          <h4 id="banner-terceiros-heading">&#128200; Dispers&atilde;o de Custos por Fabricante</h4>
+          <p id="banner-terceiros-text">
+            <strong>KoneCranes:</strong> R$ 54,5k/m&ecirc;s &bull; <strong>Kalmar:</strong> R$ 26,1k/m&ecirc;s &bull; <strong>ZMPC:</strong> R$ 15,4k/m&ecirc;s por RTG.
+          </p>
+        </div>
+
+        <div class="diagnostic-item">
+          <h4 id="banner-w900-heading">&#9201;&#65039; Intensidade Operacional &amp; Custo Hor&aacute;rio</h4>
+          <p id="banner-w900-text">
+            Frota operou <strong>169.263 horas</strong> (m&eacute;dia 529 h/m&ecirc;s/RTG). Custo m&eacute;dio direto de manuten&ccedil;&atilde;o: <strong>R$ 64,09 / hora</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI Metric Cards Grid -->
+    <section class="kpi-grid">
+      <!-- Total Geral Planilha -->
+      <div class="glass-panel kpi-card kpi-total">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-total">Total Geral (Filtro)</span>
+          <div class="kpi-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">&#128176;</div>
+        </div>
+        <div class="kpi-value" id="kpi-total-geral">R$ 11.634.334,24</div>
+        <div class="kpi-footer" id="kpi-footer-total">6.985 lan&ccedil;amentos</div>
+      </div>
+
+      <!-- Frota de RTGs -->
+      <div class="glass-panel kpi-card kpi-kone">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-rtg">Frota RTGs (39 Un)</span>
+          <span class="badge badge-kone" id="kpi-rtg-pct">93,24%</span>
+        </div>
+        <div class="kpi-value" id="kpi-rtg-total" style="color: var(--kone-blue);">R$ 10.847.678,44</div>
+        <div class="kpi-footer" id="kpi-rtg-footer">M&eacute;dia: R$ 34.768,20 / m&ecirc;s</div>
+      </div>
+
+      <!-- Horas Operadas Frota (NOVO CARD DE HORÍMETRO) -->
+      <div class="glass-panel kpi-card kpi-kone" style="border-color: rgba(56, 189, 248, 0.35);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-horas">Horas Operadas (8m)</span>
+          <span class="badge badge-kone" id="kpi-horas-badge">&#9201;&#65039; Hor&iacute;metro</span>
+        </div>
+        <div class="kpi-value" id="kpi-horas-total" style="color: #38bdf8;">169.263 hrs</div>
+        <div class="kpi-footer" id="kpi-horas-footer">M&eacute;dia: 529 hrs / m&ecirc;s / RTG</div>
+      </div>
+
+      <!-- Custo Médio por Hora (NOVO CARD DE R$/H) -->
+      <div class="glass-panel kpi-card kpi-kalmar" style="border-color: rgba(245, 158, 11, 0.35);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-custohora">Custo M&eacute;dio / Hora</span>
+          <span class="badge badge-warning" id="kpi-custohora-badge">&#9889; R$/hr</span>
+        </div>
+        <div class="kpi-value" id="kpi-custohora-val" style="color: #f59e0b;">R$ 64,09 / hr</div>
+        <div class="kpi-footer" id="kpi-custohora-footer">Benchmark Realizado (8m)</div>
+      </div>
+
+      <!-- Média Mensal Frota -->
+      <div class="glass-panel kpi-card kpi-media">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-media">M&eacute;dia Mensal / RTG</span>
+          <span class="badge badge-primary" id="kpi-media-badge">Benchmark</span>
+        </div>
+        <div class="kpi-value" id="kpi-media-mensal" style="color: #a855f7;">R$ 34.768,20</div>
+        <div class="kpi-footer" id="kpi-media-mensal-footer">Meta operacional por RTG</div>
+      </div>
+
+      <!-- KoneCranes -->
+      <div class="glass-panel kpi-card kpi-kone">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-kone">KoneCranes (16 RTGs)</span>
+          <span class="badge badge-kone" id="kpi-kone-pct">64,37% RTGs</span>
+        </div>
+        <div class="kpi-value" id="kpi-kone-total">R$ 6.982.569,60</div>
+        <div class="kpi-footer" id="kpi-kone-footer">M&eacute;dia: R$ 54.551,33 / m&ecirc;s</div>
+      </div>
+
+      <!-- Kalmar -->
+      <div class="glass-panel kpi-card kpi-kalmar">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-kalmar">Kalmar (12 RTGs)</span>
+          <span class="badge badge-kalmar" id="kpi-kalmar-pct">23,15% RTGs</span>
+        </div>
+        <div class="kpi-value" id="kpi-kalmar-total">R$ 2.511.637,79</div>
+        <div class="kpi-footer" id="kpi-kalmar-footer">M&eacute;dia: R$ 26.162,89 / m&ecirc;s</div>
+      </div>
+
+      <!-- ZMPC -->
+      <div class="glass-panel kpi-card kpi-zmpc">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-zmpc">ZMPC (11 RTGs)</span>
+          <span class="badge badge-zmpc" id="kpi-zmpc-pct">12,48% RTGs</span>
+        </div>
+        <div class="kpi-value" id="kpi-zmpc-total">R$ 1.353.471,05</div>
+        <div class="kpi-footer" id="kpi-zmpc-footer">M&eacute;dia: R$ 15.380,35 / m&ecirc;s</div>
+      </div>
+
+      <!-- Servicos Terceiros -->
+      <div class="glass-panel kpi-card kpi-kalmar">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-terceiros">Servi&ccedil;os Terceiros</span>
+          <span class="badge badge-kalmar">Externo</span>
+        </div>
+        <div class="kpi-value" id="kpi-terceiros-total" style="color: var(--kalmar-orange);">R$ 81.418,75</div>
+        <div class="kpi-footer" id="kpi-terceiros-footer">16 ordens / contratos</div>
+      </div>
+
+      <!-- RTG Mais Oneroso -->
+      <div class="glass-panel kpi-card kpi-critico">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-ofensor">Maior Ofensor</span>
+          <span class="badge badge-danger">L&iacute;der</span>
+        </div>
+        <div class="kpi-value" id="kpi-top-rtg" style="color: var(--danger); font-size: 22px;">RTG 11</div>
+        <div class="kpi-footer" id="kpi-top-rtg-footer">M&eacute;dia: R$ 101.595,52 / m&ecirc;s (+192%)</div>
+      </div>
+    </section>
+
+    <!-- Technology Families Section Header -->
+    <div class="family-section-header" style="display: flex; justify-content: space-between; align-items: center; margin: 10px 4px 14px 4px; flex-wrap: wrap; gap: 8px;">
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; margin: 0;">
+        <span>&#127959;&#65039;</span> <span id="family-section-title">Lotes Tecnol&oacute;gicos &amp; Fam&iacute;lias de RTG (Custos, Horas &amp; Custo/Hora)</span>
+      </h3>
+      <span class="badge badge-kone" id="family-section-badge">7 Lotes &bull; 39 Guindastes Ativos</span>
+    </div>
+
+    <!-- 7 Family KPI Cards Grid -->
+    <section class="kpi-grid family-kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px;">
+      <!-- Família 1: RTG 01-03 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid #0284c7;">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-1">RTG 01 ao 03 (3 un)</span>
+          <span class="badge" style="background: rgba(2, 132, 199, 0.15); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.3); font-weight: 700;" id="fam-badge-1">&#9889; Eletrificado</span>
+        </div>
+        <div class="kpi-value" id="fam-val-1" style="color: #0284c7; font-size: 20px;">R$ 609.357,13</div>
+        <div class="kpi-footer" id="fam-foot-1">
+          <div id="fam-sub-1">M&eacute;dia: R$ 25.389,88 / m&ecirc;s / RTG (5,6% RTGs)</div>
+          <div id="fam-hours-1" style="margin-top: 4px; color: #0284c7; font-weight: 700;">&#9201;&#65039; 12.564 hrs &bull; &#9889; R$ 48,50 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 2: RTG 04-06 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid #b45309;">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-2">RTG 04 ao 06 (3 un)</span>
+          <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3);" id="fam-badge-2">&#9981; Diesel (2001)</span>
+        </div>
+        <div class="kpi-value" id="fam-val-2" style="color: #b45309; font-size: 20px;">R$ 800.696,92</div>
+        <div class="kpi-footer" id="fam-foot-2">
+          <div id="fam-sub-2">M&eacute;dia: R$ 33.362,37 / m&ecirc;s / RTG (7,4% RTGs)</div>
+          <div id="fam-hours-2" style="margin-top: 4px; color: #b45309; font-weight: 700;">&#9201;&#65039; 9.305 hrs &bull; &#9889; R$ 86,05 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 3: RTG 08-10 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid var(--kalmar-orange);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-3">RTG 08 ao 10 (3 un)</span>
+          <span class="badge badge-kalmar" id="fam-badge-3">&#9981; Kalmar (2005)</span>
+        </div>
+        <div class="kpi-value" id="fam-val-3" style="color: var(--kalmar-orange); font-size: 20px;">R$ 538.547,12</div>
+        <div class="kpi-footer" id="fam-foot-3">
+          <div id="fam-sub-3">M&eacute;dia: R$ 22.439,46 / m&ecirc;s / RTG (5,0% RTGs)</div>
+          <div id="fam-hours-3" style="margin-top: 4px; color: var(--kalmar-orange); font-weight: 700;">&#9201;&#65039; 9.592 hrs &bull; &#9889; R$ 56,15 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 4: RTG 11-14 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid var(--danger);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-4">RTG 11 ao 14 (4 un)</span>
+          <span class="badge badge-danger" id="fam-badge-4">&#128680; Pico de Custo</span>
+        </div>
+        <div class="kpi-value" id="fam-val-4" style="color: var(--danger); font-size: 20px;">R$ 2.623.218,21</div>
+        <div class="kpi-footer" id="fam-foot-4">
+          <div id="fam-sub-4">M&eacute;dia: R$ 81.975,57 / m&ecirc;s / RTG (24,2% RTGs)</div>
+          <div id="fam-hours-4" style="margin-top: 4px; color: var(--danger); font-weight: 700;">&#9201;&#65039; 16.100 hrs &bull; &#9889; R$ 162,93 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 5: RTG 15-20 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid #b45309;">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-5">RTG 15 ao 20 (6 un)</span>
+          <span class="badge badge-kone" id="fam-badge-5">&#9981; Retrofit (2011)</span>
+        </div>
+        <div class="kpi-value" id="fam-val-5" style="color: #b45309; font-size: 20px;">R$ 2.949.297,34</div>
+        <div class="kpi-footer" id="fam-foot-5">
+          <div id="fam-sub-5">M&eacute;dia: R$ 61.443,69 / m&ecirc;s / RTG (27,2% RTGs)</div>
+          <div id="fam-hours-5" style="margin-top: 4px; color: #b45309; font-weight: 700;">&#9201;&#65039; 20.041 hrs &bull; &#9889; R$ 147,16 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 6: RTG 21-30 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid var(--kalmar-orange);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-6">RTG 21 ao 30 (10 un)</span>
+          <span class="badge badge-kalmar" id="fam-badge-6">&#9981; Retrofit (2014)</span>
+        </div>
+        <div class="kpi-value" id="fam-val-6" style="color: var(--kalmar-orange); font-size: 20px;">R$ 1.973.090,67</div>
+        <div class="kpi-footer" id="fam-foot-6">
+          <div id="fam-sub-6">M&eacute;dia: R$ 24.663,63 / m&ecirc;s / RTG (18,2% RTGs)</div>
+          <div id="fam-hours-6" style="margin-top: 4px; color: var(--kalmar-orange); font-weight: 700;">&#9201;&#65039; 42.560 hrs &bull; &#9889; R$ 46,36 / h</div>
+        </div>
+      </div>
+
+      <!-- Família 7: RTG 31-41 -->
+      <div class="glass-panel kpi-card" style="border-left: 4px solid var(--zmpc-green);">
+        <div class="kpi-header">
+          <span class="kpi-title" id="fam-title-7">RTG 31 ao 41 (11 un)</span>
+          <span class="badge badge-zmpc" id="fam-badge-7">&#127793; Frota Nova (2023)</span>
+        </div>
+        <div class="kpi-value" id="fam-val-7" style="color: var(--zmpc-green); font-size: 20px;">R$ 1.353.471,05</div>
+        <div class="kpi-footer" id="fam-foot-7">
+          <div id="fam-sub-7">M&eacute;dia: R$ 15.380,35 / m&ecirc;s / RTG (12,5% RTGs)</div>
+          <div id="fam-hours-7" style="margin-top: 4px; color: var(--zmpc-green); font-weight: 700;">&#9201;&#65039; 59.101 hrs &bull; &#9889; R$ 22,90 / h</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Filters Panel with MONTH FILTER -->
+    <section class="glass-panel filters-panel">
+      <div class="filters-grid" style="grid-template-columns: 1.4fr 1.3fr 1.3fr 1.1fr 1.1fr 0.9fr auto;">
+        
+        <!-- Month Filter -->
+        <div class="filter-group">
+          <label class="filter-label" for="filter-mes">&#128197; Filtrar por M&ecirc;s</label>
+          <select id="filter-mes" class="input-control" style="border-color: #38bdf8; font-weight: 600;">
+            <option value="ALL">Todos os Meses (Jan a Ago/2026)</option>
+            <option value="2026-01">Janeiro / 2026 (R$ 1,40M)</option>
+            <option value="2026-02">Fevereiro / 2026 (R$ 998k)</option>
+            <option value="2026-03">Mar&ccedil;o / 2026 (R$ 1,19M)</option>
+            <option value="2026-04">Abril / 2026 (R$ 1,48M)</option>
+            <option value="2026-05">Maio / 2026 (R$ 1,46M)</option>
+            <option value="2026-06">Junho / 2026 (R$ 1,48M)</option>
+            <option value="2026-07">Julho / 2026 (R$ 1,52M)</option>
+            <option value="2026-08">Agosto / 2026 (R$ 2,11M)</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filter-search">&#128269; Busca (Material, Fornecedor, RTG)</label>
+          <input type="text" id="filter-search" class="input-control" placeholder="Ex: RODA, BOMBA, MOTOR, 711...">
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filter-categoria">&#128194; Categoria / Destina&ccedil;&atilde;o</label>
+          <select id="filter-categoria" class="input-control">
+            <option value="ALL">Todas as Categorias</option>
+            <option value="RTG">Somente Frota de RTGs (701 a 741)</option>
+            <option value="SERVICO_TERCEIRO">Somente Servi&ccedil;os de Terceiros</option>
+            <option value="OFICINA_W900">Somente Oficina / Apoio W900</option>
+            <option value="APOIO_F316">Equipamento de Apoio F316</option>
+            <option value="NAO_ALOCADO">Manuten&ccedil;&atilde;o Geral N&atilde;o Alocada</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filter-modelo">&#127981; Fabricante / Modelo</label>
+          <select id="filter-modelo" class="input-control">
+            <option value="ALL">Todos os Modelos</option>
+            <option value="KoneCranes">KoneCranes (RTG 01-06 &amp; 11-20)</option>
+            <option value="Kalmar">Kalmar (RTG 08-10 &amp; 21-30)</option>
+            <option value="ZMPC">ZMPC (RTG 31-41)</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filter-equipamento">&#127959;&#65039; RTG Espec&iacute;fico</label>
+          <select id="filter-equipamento" class="input-control">
+            <option value="ALL">Todos os RTGs</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filter-min-val">&#128181; Valor M&iacute;n. (R$)</label>
+          <input type="number" id="filter-min-val" class="input-control" placeholder="Ex: 5000">
+        </div>
+
+        <div>
+          <button class="btn btn-secondary" id="btn-reset-filters" style="width: 100%; height: 42px;">&#8634; Limpar</button>
+        </div>
+      </div>
+
+      <div class="filter-status-bar">
+        <span id="status-counter">Carregando dados da Base V2...</span>
+        <span style="font-size: 12px; color: var(--text-muted);">&#128161; Dica: clique sobre o nome de qualquer RTG na tabela para abrir o hist&oacute;rico dos 8 meses</span>
+      </div>
+    </section>
+
+    <!-- Main Charts Section -->
+    <section class="charts-grid">
+      <!-- Monthly Evolution Chart -->
+      <div class="glass-panel chart-card">
+        <div class="chart-header">
+          <div class="chart-title">
+            <span>&#128200; Evolu&ccedil;&atilde;o Mensal de Custos &bull; Janeiro a Agosto de 2026</span>
+          </div>
+          <div>
+            <span class="badge badge-kone">8 Meses Consolidados</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="chart-evolucao-mensal"></canvas>
+        </div>
+      </div>
+
+      <!-- Model Share Donut Chart -->
+      <div class="glass-panel chart-card">
+        <div class="chart-header">
+          <div class="chart-title">
+            <span>&#127849; Participa&ccedil;&atilde;o de Custos por Fabricante de RTG</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="chart-modelos"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secondary Charts Section -->
+    <section class="secondary-charts-grid">
+      <!-- Top RTGs Ranking Chart with Benchmark Line -->
+      <div class="glass-panel chart-card">
+        <div class="chart-header">
+          <div class="chart-title">
+            <span id="chart-equip-title">&#127959;&#65039; Top 15 RTGs: Custo Total &amp; Comparativo vs M&eacute;dia da Frota</span>
+          </div>
+          <div>
+            <span class="badge badge-media">Benchmark: R$ 34,7k/m&ecirc;s</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="chart-equipamentos"></canvas>
+        </div>
+      </div>
+
+      <!-- Split Chart -->
+      <div class="glass-panel chart-card">
+        <div class="chart-header">
+          <div class="chart-title">
+            <span>&#128202; Composi&ccedil;&atilde;o Geral de Custos (RTGs vs Terceiros vs Apoio)</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="chart-composicao-geral"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-container">
+      <button class="tab-btn active" data-tab="ranking" id="tab-btn-ranking">
+        &#127959;&#65039; Consolidado por RTG (M&eacute;dias &amp; Ranking)
+      </button>
+      <button class="tab-btn" data-tab="mensal" id="tab-btn-mensal">
+        &#128197; Comparativo Mensal (Jan a Ago)
+      </button>
+      <button class="tab-btn" data-tab="lancamentos" id="tab-btn-lancamentos">
+        &#128203; Todos os Lan&ccedil;amentos (6.985 itens)
+      </button>
+      <button class="tab-btn" data-tab="terceiros" id="tab-btn-terceiros">
+        &#129309; Servi&ccedil;os de Terceiros
+      </button>
+      <button class="tab-btn" data-tab="w900" id="tab-btn-w900">
+        &#128295; Oficina W900 (Apoio)
+      </button>
+      <button class="tab-btn" data-tab="materiais" id="tab-btn-materiais">
+        &#128297; Top Pe&ccedil;as de RTG
+      </button>
+      <button class="tab-btn" data-tab="diagnostico" id="tab-btn-diagnostico">
+        &#128196; Plano Executivo &amp; An&aacute;lise
+      </button>
+    </div>
+
+    <!-- Tab Content / Table Card -->
+    <section class="glass-panel table-card" id="tab-content-area">
+      <!-- Injected dynamically via app.js -->
+    </section>
+
+  </div>
+
+  <!-- Modal for Comprehensive Analysis Plan -->
+  <div class="modal-overlay" id="plan-modal">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close-btn">&times;</button>
+      <h2 style="color: var(--kone-blue); margin-bottom: 8px;">Relat&oacute;rio de Auditoria de Custos &bull; Planilha V2 (8 Meses)</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 20px;">
+        An&aacute;lise multimensal de despesas, tend&ecirc;ncias or&ccedil;ament&aacute;rias e m&eacute;dias mensais da frota de RTGs.
+      </p>
+
+      <div style="line-height: 1.8; color: var(--text-secondary); font-size: 14px;">
+        <h3 style="color: var(--text-primary); margin-top: 16px;">1. Metodologia da M&eacute;dia Mensal por RTG</h3>
+        <p>
+          A m&eacute;dia mensal de cada RTG &eacute; apurada dividindo o custo total acumulado pelos 8 meses do per&iacute;odo (Janeiro a Agosto de 2026).
+          A m&eacute;dia global da frota operacional &eacute; de <strong>R$ 34.768,20 / m&ecirc;s por guindaste</strong>.
+        </p>
+
+        <h3 style="color: var(--text-primary); margin-top: 20px;">2. Benchmarks por Fabricante</h3>
+        <ul style="margin-left: 24px; margin-top: 8px;">
+          <li><strong>KoneCranes (16 RTGs):</strong> R$ 54.551,33 / RTG / m&ecirc;s (+56,9% acima da m&eacute;dia da frota).</li>
+          <li><strong>Kalmar (12 RTGs):</strong> R$ 26.162,89 / RTG / m&ecirc;s (-24,8% abaixo da m&eacute;dia da frota).</li>
+          <li><strong>ZMPC (11 RTGs):</strong> R$ 15.380,35 / RTG / m&ecirc;s (-55,8% abaixo da m&eacute;dia da frota).</li>
+        </ul>
+
+        <h3 style="color: var(--text-primary); margin-top: 20px;">3. Os 5 Maiores Ofensores Mensais</h3>
+        <p>
+          Os RTGs <strong>11 (R$ 101,6k/m&ecirc;s)</strong>, <strong>18 (R$ 96,2k/m&ecirc;s)</strong>, <strong>12 (R$ 93,9k/m&ecirc;s)</strong>, <strong>13 (R$ 85,3k/m&ecirc;s)</strong> e <strong>17 (R$ 76,3k/m&ecirc;s)</strong> operam com m&eacute;dias mensais de duas a quase tr&ecirc;s vezes superiores ao padr&atilde;o da frota.
+        </p>
+
+        <div style="margin-top: 24px; text-align: right;">
+          <button class="btn btn-primary" onclick="document.getElementById('plan-modal').style.display='none'">Fechar Relat&oacute;rio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for RTG Monthly Drill-down (NOVO MODAL) -->
+  <div class="modal-overlay" id="rtg-modal" style="display: none;">
+    <div class="modal-container" style="max-width: 780px;">
+      <button class="modal-close" onclick="document.getElementById('rtg-modal').style.display='none'">&times;</button>
+      <div id="rtg-modal-content">
+        <!-- Injected dynamically via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Data & Controller Scripts -->
+  <script src="rtg_complete_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

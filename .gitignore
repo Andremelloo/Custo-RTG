@@ -1,0 +1,19 @@
+# Sistema e Logs
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.BIN/
+*.log
+
+# Arquivos temporarios do Office
+~$*
+*.tmp
+2021 Letterhead.docx
+
+# Pastas de trabalho auxiliares
+historico_versoes/
+letterhead_extracted/
+letterhead_img/
+
+# Scripts de geracao interna
+generate_tcp_strategic_pdf*.ps1
