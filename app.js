@@ -43,10 +43,10 @@ const i18n = {
     kpiZmpcTitle: 'ZMPC (11 RTGs)',
     kpiTerceirosTitle: 'Serviços Terceiros',
     kpiOfensorTitle: 'Maior Ofensor',
-    kpiTitleProj2026: 'Previsão Fechamento 2026',
+    kpiTitleProj2026: 'Previsão Fechamento 2026 (RTGs)',
     kpiBadgeProj2026: '🎯 Run-rate 12m',
-    kpiTitleProj2027: 'Previsão Orçamento 2027',
-    kpiBadgeProj2027: '📈 Base + 5%',
+    kpiTitleProj2027: 'Previsão Orçamento 2027 (RTGs)',
+    kpiBadgeProj2027: '📈 +8,0% Desgaste',
     filterMonth: '📅 Mês / Período',
     filterCategory: '🏷️ Categoria',
     filterModel: '⚙️ Fabricante / Modelo',
@@ -140,10 +140,10 @@ const i18n = {
     kpiZmpcTitle: 'ZMPC (11 RTGs)',
     kpiTerceirosTitle: 'Contractors & Services',
     kpiOfensorTitle: 'Highest Cost Offender',
-    kpiTitleProj2026: '2026 Year-End Forecast',
+    kpiTitleProj2026: '2026 Year-End Forecast (RTGs)',
     kpiBadgeProj2026: '🎯 12m Run-rate',
-    kpiTitleProj2027: '2027 Budget Forecast',
-    kpiBadgeProj2027: '📈 Base + 5%',
+    kpiTitleProj2027: '2027 Budget Forecast (RTGs)',
+    kpiBadgeProj2027: '📈 +8.0% Escalation',
     filterMonth: '📅 Month / Period',
     filterCategory: '🏷️ Category',
     filterModel: '⚙️ Manufacturer / Model',
@@ -879,16 +879,32 @@ function updateKPIs() {
   const elTopRtgFoot = document.getElementById('kpi-top-rtg-footer');
   if (elTopRtgFoot) elTopRtgFoot.textContent = `${state.lang === 'en' ? 'Average' : 'Média'}: ${formatCurrency(topRtgMedia)}${t('perMonthSuffix')} (${topRtgDesvio >= 0 ? '+' : ''}${topRtgDesvio.toFixed(0)}%)`;
 
-  // 2026 Year-End Forecast & 2027 Budget Forecast
-  const projFechamento2026 = (totalGeral / numMeses) * 12;
-  const orcamento2027 = projFechamento2026 * 1.05;
+  // 2026 Year-End Forecast & 2027 Budget Forecast (Alinhado 100% com o Estudo Estratégico - Pág. 4)
+  const projFechamento2026 = (totalRTG / numMeses) * 12;
+
+  // Modelo técnico de escalada por grupo de idade do relatório oficial:
+  // >20 anos (RTG 01-10): +10% | Meia-vida 10-20 anos (RTG 11-30): +8% | Novas 3 anos (RTG 31-41): +5%
+  let orcamento2027 = 0;
+  if (rtgItems.length > 0) {
+    const lote10pct = rtgItems.filter((r) => r.rtgNum <= 10).reduce((a, b) => a + b.valor, 0);
+    const lote8pct  = rtgItems.filter((r) => r.rtgNum >= 11 && r.rtgNum <= 30).reduce((a, b) => a + b.valor, 0);
+    const lote5pct  = rtgItems.filter((r) => r.rtgNum >= 31).reduce((a, b) => a + b.valor, 0);
+
+    const anual10 = (lote10pct / numMeses) * 12;
+    const anual8  = (lote8pct / numMeses) * 12;
+    const anual5  = (lote5pct / numMeses) * 12;
+
+    orcamento2027 = (anual10 * 1.10) + (anual8 * 1.08) + (anual5 * 1.05);
+  } else {
+    orcamento2027 = projFechamento2026 * 1.08;
+  }
 
   const elProj26 = document.getElementById('kpi-proj2026-val');
   if (elProj26) elProj26.textContent = formatCurrency(projFechamento2026);
   const elProj26Foot = document.getElementById('kpi-proj2026-footer');
   if (elProj26Foot) {
     if (state.filters.mes === 'ALL') {
-      const remainingCost = projFechamento2026 - totalGeral;
+      const remainingCost = projFechamento2026 - totalRTG;
       elProj26Foot.textContent = state.lang === 'en'
         ? `+${formatCurrency(remainingCost)} (Sep-Dec est.)`
         : `+${formatCurrency(remainingCost)} (Set-Dez est.)`;
@@ -904,8 +920,8 @@ function updateKPIs() {
   const elProj27Foot = document.getElementById('kpi-proj2027-footer');
   if (elProj27Foot) {
     elProj27Foot.textContent = state.lang === 'en'
-      ? '12m Base + 5% adjustment'
-      : 'Base 12m + 5% reajuste/dissídio';
+      ? '+8.0% wear escalation (P.4)'
+      : '+8,0% escalada desgaste (Pág. 4)';
   }
 
   // 7 Family Cards calculation
