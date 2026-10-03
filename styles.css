@@ -299,6 +299,8 @@ body {
 .kpi-card.kpi-zmpc::before { background: var(--zmpc-green); }
 .kpi-card.kpi-critico::before { background: var(--danger); }
 .kpi-card.kpi-media::before { background: #a855f7; }
+.kpi-card.kpi-proj2026::before { background: linear-gradient(to bottom, #10b981, #059669); }
+.kpi-card.kpi-proj2027::before { background: linear-gradient(to bottom, #8b5cf6, #6366f1); }
 
 .kpi-header {
   display: flex;

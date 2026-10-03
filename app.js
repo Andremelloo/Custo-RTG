@@ -43,6 +43,10 @@ const i18n = {
     kpiZmpcTitle: 'ZMPC (11 RTGs)',
     kpiTerceirosTitle: 'Serviços Terceiros',
     kpiOfensorTitle: 'Maior Ofensor',
+    kpiTitleProj2026: 'Previsão Fechamento 2026',
+    kpiBadgeProj2026: '🎯 Run-rate 12m',
+    kpiTitleProj2027: 'Previsão Orçamento 2027',
+    kpiBadgeProj2027: '📈 Base + 5%',
     filterMonth: '📅 Mês / Período',
     filterCategory: '🏷️ Categoria',
     filterModel: '⚙️ Fabricante / Modelo',
@@ -136,6 +140,10 @@ const i18n = {
     kpiZmpcTitle: 'ZMPC (11 RTGs)',
     kpiTerceirosTitle: 'Contractors & Services',
     kpiOfensorTitle: 'Highest Cost Offender',
+    kpiTitleProj2026: '2026 Year-End Forecast',
+    kpiBadgeProj2026: '🎯 12m Run-rate',
+    kpiTitleProj2027: '2027 Budget Forecast',
+    kpiBadgeProj2027: '📈 Base + 5%',
     filterMonth: '📅 Month / Period',
     filterCategory: '🏷️ Category',
     filterModel: '⚙️ Manufacturer / Model',
@@ -615,6 +623,14 @@ function applyLanguageUI() {
   if (kTerc) kTerc.textContent = t('kpiTerceirosTitle');
   const kOfens = document.getElementById('kpi-title-ofensor');
   if (kOfens) kOfens.textContent = t('kpiOfensorTitle');
+  const kProj26 = document.getElementById('kpi-title-proj2026');
+  if (kProj26) kProj26.textContent = t('kpiTitleProj2026');
+  const kProj26B = document.getElementById('kpi-proj2026-badge');
+  if (kProj26B) kProj26B.textContent = t('kpiBadgeProj2026');
+  const kProj27 = document.getElementById('kpi-title-proj2027');
+  if (kProj27) kProj27.textContent = t('kpiTitleProj2027');
+  const kProj27B = document.getElementById('kpi-proj2027-badge');
+  if (kProj27B) kProj27B.textContent = t('kpiBadgeProj2027');
 
   // Family Section Header & Titles
   const fSecTitle = document.getElementById('family-section-title');
@@ -862,6 +878,35 @@ function updateKPIs() {
   if (elTopRtg) elTopRtg.textContent = topRtgObj.rtg;
   const elTopRtgFoot = document.getElementById('kpi-top-rtg-footer');
   if (elTopRtgFoot) elTopRtgFoot.textContent = `${state.lang === 'en' ? 'Average' : 'Média'}: ${formatCurrency(topRtgMedia)}${t('perMonthSuffix')} (${topRtgDesvio >= 0 ? '+' : ''}${topRtgDesvio.toFixed(0)}%)`;
+
+  // 2026 Year-End Forecast & 2027 Budget Forecast
+  const projFechamento2026 = (totalGeral / numMeses) * 12;
+  const orcamento2027 = projFechamento2026 * 1.05;
+
+  const elProj26 = document.getElementById('kpi-proj2026-val');
+  if (elProj26) elProj26.textContent = formatCurrency(projFechamento2026);
+  const elProj26Foot = document.getElementById('kpi-proj2026-footer');
+  if (elProj26Foot) {
+    if (state.filters.mes === 'ALL') {
+      const remainingCost = projFechamento2026 - totalGeral;
+      elProj26Foot.textContent = state.lang === 'en'
+        ? `+${formatCurrency(remainingCost)} (Sep-Dec est.)`
+        : `+${formatCurrency(remainingCost)} (Set-Dez est.)`;
+    } else {
+      elProj26Foot.textContent = state.lang === 'en'
+        ? `Annualized pace (${state.filters.mes})`
+        : `Ritmo anualizado (${state.filters.mes})`;
+    }
+  }
+
+  const elProj27 = document.getElementById('kpi-proj2027-val');
+  if (elProj27) elProj27.textContent = formatCurrency(orcamento2027);
+  const elProj27Foot = document.getElementById('kpi-proj2027-footer');
+  if (elProj27Foot) {
+    elProj27Foot.textContent = state.lang === 'en'
+      ? '12m Base + 5% adjustment'
+      : 'Base 12m + 5% reajuste/dissídio';
+  }
 
   // 7 Family Cards calculation
   FAMILIES_DEF.forEach(fam => {
