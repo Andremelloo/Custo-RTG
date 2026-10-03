@@ -89,7 +89,15 @@ const i18n = {
     chartCompTitle: '📊 Composição Geral de Custos (RTGs vs Terceiros vs Apoio)',
     idleNotice: '0 h (ocioso)',
     perHourSuffix: '/ hora',
-    perMonthSuffix: '/ mês'
+    perMonthSuffix: '/ mês',
+    loginTitle: 'Terminal de Contêineres de Paranaguá',
+    loginSub: 'Gestão Estratégica de Custos • Frota RTG',
+    loginLabel: '🔒 Senha de Acesso',
+    loginPlaceholder: 'Digite a senha...',
+    loginBtn: 'Acessar Dashboard',
+    loginError: '⚠️ Senha incorreta. Tente novamente.',
+    loginFooter: '🛡️ Ambiente Seguro • Acesso Restrito • Engenharia TCP',
+    logoutBtn: 'Sair'
   },
   en: {
     langBtn: '🇧🇷 Português',
@@ -174,7 +182,15 @@ const i18n = {
     chartCompTitle: '📊 Overall Cost Breakdown (RTGs vs Contractors vs Support)',
     idleNotice: '0 hrs (idle)',
     perHourSuffix: '/ hr',
-    perMonthSuffix: '/ mo'
+    perMonthSuffix: '/ mo',
+    loginTitle: 'Paranaguá Container Terminal (TCP)',
+    loginSub: 'Strategic Fleet Cost Management • RTGs',
+    loginLabel: '🔒 Access Password',
+    loginPlaceholder: 'Enter password...',
+    loginBtn: 'Access Dashboard',
+    loginError: '⚠️ Incorrect password. Try again.',
+    loginFooter: '🛡️ Secure Environment • Restricted Access • TCP Engineering',
+    logoutBtn: 'Logout'
   }
 };
 
@@ -245,6 +261,90 @@ const formatPercent = (val) => {
   return `${(val || 0).toFixed(2)}%`;
 };
 
+// Access Control & Authentication
+const AUTH_KEY = 'tcp_rtg_auth_session';
+const PASSWORD_HASH = '67d0848a01e3815cf8b5d6e2f9a2c59fbaa38e5e3dfd3774af53e319f82b72e4';
+
+function checkAuthStatus() {
+  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true';
+  const gate = document.getElementById('login-gate');
+  if (isAuth) {
+    if (gate) gate.style.display = 'none';
+  } else {
+    if (gate) {
+      gate.style.display = 'flex';
+      const inp = document.getElementById('login-password');
+      if (inp) inp.focus();
+    }
+  }
+}
+
+async function sha256(str) {
+  if (window.crypto && crypto.subtle) {
+    const buffer = new TextEncoder().encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+  return str === 'tcp@2026' ? PASSWORD_HASH : '';
+}
+
+async function handleLoginSubmit(e) {
+  if (e) e.preventDefault();
+  const input = document.getElementById('login-password');
+  const err = document.getElementById('login-error');
+  if (!input) return;
+  const val = input.value.trim();
+
+  const computed = await sha256(val);
+  if (computed === PASSWORD_HASH || val === 'tcp@2026') {
+    sessionStorage.setItem(AUTH_KEY, 'true');
+    if (err) err.style.display = 'none';
+    const gate = document.getElementById('login-gate');
+    if (gate) {
+      gate.style.opacity = '0';
+      setTimeout(() => { gate.style.display = 'none'; }, 300);
+    }
+  } else {
+    if (err) {
+      err.style.display = 'block';
+      err.textContent = t('loginError');
+    }
+    input.value = '';
+    input.focus();
+  }
+}
+
+function handleLogout() {
+  sessionStorage.removeItem(AUTH_KEY);
+  const gate = document.getElementById('login-gate');
+  const input = document.getElementById('login-password');
+  const err = document.getElementById('login-error');
+  if (err) err.style.display = 'none';
+  if (input) input.value = '';
+  if (gate) {
+    gate.style.display = 'flex';
+    setTimeout(() => { gate.style.opacity = '1'; }, 10);
+    if (input) input.focus();
+  }
+}
+
+function togglePasswordVisibility() {
+  const input = document.getElementById('login-password');
+  const btn = document.getElementById('btn-toggle-pwd');
+  if (!input || !btn) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.innerHTML = '&#128064;';
+  } else {
+    input.type = 'password';
+    btn.innerHTML = '&#128065;&#65039;';
+  }
+}
+
+window.handleLoginSubmit = handleLoginSubmit;
+window.handleLogout = handleLogout;
+window.togglePasswordVisibility = togglePasswordVisibility;
+
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', () => {
   if (!window.RTG_DATA || !window.RTG_DATA.lancamentos) {
@@ -261,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (e) {}
 
+  checkAuthStatus();
   state.filtered = [...state.raw.lancamentos];
 
   initFilterOptions();
@@ -305,6 +406,12 @@ function initEventListeners() {
       updateStatusBar();
       updateCharts();
     });
+  }
+
+  // Logout / Lock Button
+  const btnLogout = document.getElementById('btn-logout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', handleLogout);
   }
 
   // Theme Toggle
@@ -514,6 +621,22 @@ function applyLanguageUI() {
     const elFamBadge = document.getElementById(`fam-badge-${fam.id}`);
     if (elFamBadge) elFamBadge.textContent = state.lang === 'en' ? fam.badgeEn : fam.badgePt;
   });
+
+  // Login Gate & Logout Translations
+  const logComp = document.getElementById('login-company-title');
+  if (logComp) logComp.textContent = t('loginTitle');
+  const logPort = document.getElementById('login-portal-title');
+  if (logPort) logPort.textContent = t('loginSub');
+  const logLbl = document.getElementById('lbl-login-pass');
+  if (logLbl) logLbl.innerHTML = t('loginLabel');
+  const logInp = document.getElementById('login-password');
+  if (logInp) logInp.placeholder = t('loginPlaceholder');
+  const logBtn = document.getElementById('btn-login-submit-text');
+  if (logBtn) logBtn.textContent = t('loginBtn');
+  const logFoot = document.getElementById('login-footer-text');
+  if (logFoot) logFoot.innerHTML = `<span>${t('loginFooter')}</span>`;
+  const outBtn = document.getElementById('btn-logout-text');
+  if (outBtn) outBtn.textContent = t('logoutBtn');
 
   // Filter Labels
   const flMes = document.querySelector('label[for="filter-mes"]');

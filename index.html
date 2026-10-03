@@ -20,6 +20,45 @@
 </head>
 <body>
 
+  <!-- Login Access Gate Modal Overlay -->
+  <div id="login-gate" class="login-gate-overlay">
+    <div class="glass-panel login-card">
+      <div class="login-brand">
+        <div class="login-icon">&#9875;&#65039;</div>
+        <h2 id="login-company-title">Terminal de Cont&ecirc;ineres de Paranagu&aacute;</h2>
+        <p class="login-sub" id="login-portal-title">Gest&atilde;o Estrat&eacute;gica de Custos &bull; Frota RTG</p>
+      </div>
+
+      <form id="login-form" onsubmit="handleLoginSubmit(event)" autocomplete="off">
+        <div class="login-form-group">
+          <label for="login-password" id="lbl-login-pass">&#128274; Senha de Acesso</label>
+          <div class="password-input-wrapper">
+            <input 
+              type="password" 
+              id="login-password" 
+              class="input-control" 
+              placeholder="Digite a senha..." 
+              required 
+              autofocus
+            />
+            <button type="button" class="btn-toggle-pwd" id="btn-toggle-pwd" title="Mostrar/Ocultar Senha" onclick="togglePasswordVisibility()">&#128065;&#65039;</button>
+          </div>
+          <div class="login-error-msg" id="login-error" style="display: none;">
+            &#9888;&#65039; Senha incorreta. Tente novamente.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-login-submit" id="btn-login-submit">
+          <span id="btn-login-submit-text">Acessar Dashboard</span> &rarr;
+        </button>
+      </form>
+
+      <div class="login-footer" id="login-footer-text">
+        <span>&#128737;&#65039; Ambiente Seguro &bull; Acesso Restrito &bull; Engenharia TCP</span>
+      </div>
+    </div>
+  </div>
+
   <div class="app-container">
     
     <!-- Top Header -->
@@ -49,6 +88,7 @@
         <button class="btn btn-secondary" id="btn-export-csv">&#128229; Baixar CSV</button>
         <button class="btn btn-success" id="btn-export-excel">&#128202; Exportar Excel (.xlsx)</button>
         <button class="btn btn-outline" id="btn-print">&#128424;&#65039; Imprimir / PDF</button>
+        <button class="btn btn-outline" id="btn-logout" title="Bloquear / Sair">&#128274; <span id="btn-logout-text">Sair</span></button>
       </div>
     </header>
 
